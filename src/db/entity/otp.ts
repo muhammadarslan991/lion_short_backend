@@ -1,28 +1,25 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  ManyToOne,
-  JoinColumn,
-} from "typeorm";
-import { User } from "./user";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn, Index } from 'typeorm';
+import { User } from './user';
 
-@Entity({ name: "otps" })
+@Entity({ name: 'otps' })
 export class Otp {
-  @PrimaryGeneratedColumn("uuid")
-  id!: string;
+	@PrimaryGeneratedColumn('uuid')
+	id!: string;
 
-  @Column()
-  code!: number;
+	@Column()
+	code!: number;
 
-  @Column({ default: false })
-  used!: boolean;
+	@Column({ default: false })
+	used!: boolean;
 
-  @CreateDateColumn()
-  createdAt!: Date;
+	@CreateDateColumn()
+	createdAt!: Date;
 
-  @ManyToOne(() => User, (user) => user.otps)
-  @JoinColumn({ name: "user_id" })
-  user!: User;
+	@Column({ type: 'uuid', nullable: false })
+	@Index()
+	userId!: string;
+
+	@ManyToOne(() => User, (user) => user.otps)
+	@JoinColumn({ name: 'userId' })
+	user!: User;
 }

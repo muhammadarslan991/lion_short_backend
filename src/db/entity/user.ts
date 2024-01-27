@@ -1,29 +1,21 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  DeleteDateColumn,
-  OneToMany,
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany } from 'typeorm';
 
-import { Otp } from "./otp";
+import { Otp } from './otp';
 
-import { Roles } from "../../utils/enums";
+import { Roles } from '../../utils/enums';
 
-@Entity({ name: "users" })
+@Entity({ name: 'users' })
 export class User {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Column({ unique: true })
   username!: string;
 
-  @Column({ unique: false, type: "text" })
+  @Column({ unique: false, type: 'text' })
   firstName!: string;
 
-  @Column({ unique: false, type: "text" })
+  @Column({ unique: false, type: 'text' })
   lastName!: string;
 
   @Column({ unique: true })
@@ -32,10 +24,10 @@ export class User {
   @Column()
   password!: string;
 
-  @Column({ type: "text", enum: Roles, default: Roles.User })
+  @Column({ type: 'text', enum: Roles, default: Roles.User })
   role!: string;
 
-  @Column({ type: "boolean", default: false })
+  @Column({ type: 'boolean', default: false })
   verify!: boolean;
 
   @OneToMany(() => Otp, (otp) => otp.user)
@@ -47,6 +39,6 @@ export class User {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  @DeleteDateColumn({ name: "deleted_at" })
+  @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt!: Date;
 }

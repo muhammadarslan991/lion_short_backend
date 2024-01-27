@@ -1,9 +1,9 @@
-import { createConnection, Connection } from 'typeorm'
-import * as entities from '../db/entity'
+import { createConnection, Connection } from 'typeorm';
+import * as entities from '../db/entity';
 
 export const connectDatabase = async (): Promise<Connection> => {
   try {
-    const entityClasses = Object.values(entities) as Function[]
+    const entityClasses = Object.values(entities) as Function[];
 
     const connection = await createConnection({
       type: 'postgres',
@@ -15,12 +15,12 @@ export const connectDatabase = async (): Promise<Connection> => {
       synchronize: true,
       logging: true,
       entities: entityClasses // Explicitly type entities as an array of classes
-    })
+    });
 
-    console.log('Database connected successfully')
-    return connection
+    console.log('Database connected successfully');
+    return connection;
   } catch (error) {
-    console.error('Error connecting to the database:', error)
-    throw error
+    console.error('Error connecting to the database:', error);
+    throw error;
   }
-}
+};
