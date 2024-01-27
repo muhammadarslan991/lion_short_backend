@@ -1,0 +1,16 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "postgress",
+  "password": "postgress",
+  "database": "lion_short",
+  "synchronize": true,
+  "logging": true,
+  "entities": ["src/db/entity/**/*.ts"],
+  "migrations": ["src/db/migration/**/*.ts"],
+  "cli": {
+    "entitiesDir": "src/db/entity",
+    "migrationsDir": "src/db/migration"
+  }
+}
