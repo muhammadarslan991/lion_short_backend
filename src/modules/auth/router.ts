@@ -11,7 +11,6 @@ router.post('/signup', validate.SignupValidator, Controller.signup);
 router.post('/signin', validate.SigninValidator, Controller.signin);
 router.post('/verify-accout', validate.VerifyValidator, Controller.verifyAccount);
 router.post('/resend-otp', validate.ResendValidator, Controller.resend);
-
-router.get('/profile', authMiddleware, Controller.profile);
+router.get('/logout', authMiddleware, Controller.logout);
 
 export default router;

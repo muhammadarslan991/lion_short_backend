@@ -3,8 +3,6 @@ import { UserTokenData } from './types';
 
 const secretKey = process.env.JWT as string;
 
-console.log('secretKeysecretKeysecretKey', secretKey);
-
 export const generateToken = (data: UserTokenData): string => {
   return jwt.sign(
     data,

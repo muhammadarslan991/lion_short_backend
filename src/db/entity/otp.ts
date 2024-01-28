@@ -3,23 +3,23 @@ import { User } from './user';
 
 @Entity({ name: 'otps' })
 export class Otp {
-	@PrimaryGeneratedColumn('uuid')
-	id!: string;
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
-	@Column()
-	code!: number;
+  @Column()
+  code!: number;
 
-	@Column({ default: false })
-	used!: boolean;
+  @Column({ default: false })
+  used!: boolean;
 
-	@CreateDateColumn()
-	createdAt!: Date;
+  @CreateDateColumn()
+  createdAt!: Date;
 
-	@Column({ type: 'uuid', nullable: false })
-	@Index()
-	userId!: string;
+  @Column({ type: 'uuid', nullable: false })
+  @Index()
+  userId!: string;
 
-	@ManyToOne(() => User, (user) => user.otps)
-	@JoinColumn({ name: 'userId' })
-	user!: User;
+  @ManyToOne(() => User, (user) => user.otps)
+  @JoinColumn({ name: 'userId' })
+  user!: User;
 }

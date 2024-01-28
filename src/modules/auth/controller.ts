@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { resendVerification, signIn, signUp, verifyAccount } from './service';
 
-import { AuthenticatedRequest } from './interface';
+import RedisService from '../../db/redis/index';
 
 export default {
   signup: async (req: Request, res: Response) => {
@@ -59,18 +59,23 @@ export default {
       }
     }
   },
-
-  profile: async (req: AuthenticatedRequest, res: Response) => {
+  logout: async (req: Request, res: Response) => {
     try {
-      // Implement your getUserProfile logic
-      const { user } = req; // Assuming you have user information in the request
-      return res.status(200).json(user);
-    } catch (err) {
-      if (err instanceof Error) {
-        return res.status(500).json({ error: err.message });
-      } else {
-        return res.status(500).json({ error: 'An unexpected error occurred' });
+      const { authorization } = req.headers;
+      if (!authorization) {
+        return res.status(401).json({ error: 'Authorization header is required' });
       }
+
+      // Extract the token from the authorization header
+      const token = authorization.split(' ')[1];
+
+      // Add the token to the blacklist
+      await RedisService.addToBlackList(token);
+
+      return res.status(200).json({ message: 'Logged out successfully' });
+    } catch (err) {
+      console.error('Error during logout:', err);
+      return res.status(500).json({ error: 'An unexpected error occurred' });
     }
   }
 };

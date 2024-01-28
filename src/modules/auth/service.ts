@@ -55,12 +55,12 @@ export const signIn = async (data: SigninInput): Promise<UserTokenResponse | nul
     where: { email: data.email }
   });
 
-  if (!user?.verify) {
-    throw new Error('Your accout not verify yet');
-  }
-
   if (!user || !(await bcrypt.compare(data.password, user.password))) {
     throw new Error('Invalid credentials');
+  }
+
+  if (!user?.verify) {
+    throw new Error('Your accout not verify yet');
   }
 
   const tokenData: UserTokenData = {

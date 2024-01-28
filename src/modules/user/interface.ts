@@ -5,12 +5,3 @@ import { UserTokenData } from '../../utils/types';
 export interface AuthenticatedRequest extends ExpressRequest {
   user?: UserTokenData; // Modify 'any' to match the type of your user object
 }
-
-export interface UserTokenResponse {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  verify: boolean;
-  token: string;
-}
